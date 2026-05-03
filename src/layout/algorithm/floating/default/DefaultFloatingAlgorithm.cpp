@@ -60,6 +60,7 @@ void CDefaultFloatingAlgorithm::newTarget(SP<ITarget> target) {
 
                 // update for pos to work with size.
                 WINDOW->m_realPosition->setValueAndWarp(*COMPUTED);
+                WINDOW->m_realSize->setValueAndWarp(*COMPUTED);
             }
         }
 
