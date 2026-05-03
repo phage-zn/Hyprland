@@ -1749,6 +1749,7 @@ void CWindow::updateDecorationValues() {
 std::optional<double> CWindow::calculateSingleExpr(const std::string& s) {
     const auto        PMONITOR     = m_monitor ? m_monitor : Desktop::focusState()->monitor();
     const auto        CURSOR_LOCAL = g_pInputManager->getMouseCoordsInternal() - (PMONITOR ? PMONITOR->m_position : Vector2D{});
+    const auto        WORK_AREA    = m_workspace->m_space->workArea(m_isFloating);
 
     Math::CExpression expr;
     expr.addVariable("window_w", m_realSize->goal().x);
@@ -1761,6 +1762,11 @@ std::optional<double> CWindow::calculateSingleExpr(const std::string& s) {
 
     expr.addVariable("cursor_x", CURSOR_LOCAL.x);
     expr.addVariable("cursor_y", CURSOR_LOCAL.y);
+
+    expr.addVariable("workarea_w", WORK_AREA.w);
+    expr.addVariable("workarea_h", WORK_AREA.h);
+    expr.addVariable("workarea_x", WORK_AREA.x);
+    expr.addVariable("workarea_y", WORK_AREA.y);
 
     return expr.compute(s);
 }
